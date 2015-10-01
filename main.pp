@@ -17,7 +17,8 @@ node default {
 
     file { ["${settings::modulepath}/../web/data"]:
         require => Exec["install_dokuwiki"],
-        ensure => absent
+        ensure => absent,
+        recurse => true,
     }
 
     exec { "install_dokuwiki":
