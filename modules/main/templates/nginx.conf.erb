@@ -25,4 +25,14 @@ server {
         fastcgi_param HTTPS off;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 	}
+
+	location /data {
+		access_log off;
+		return 404;
+	}
+
+	location /conf {
+		access_log off;
+		return 404;
+	}
 }
