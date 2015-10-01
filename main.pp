@@ -8,11 +8,16 @@ node default {
         content  => template('main/conf_dokuwiki.php.erb'),
     }
 
-    file { ["${settings::modulepath}/../web/data", "${settings::modulepath}/../web/conf"]:
+    file { ["${settings::modulepath}/../data", "${settings::modulepath}/../web/conf"]:
         require => Exec["install_dokuwiki"],
         ensure => directory,
         recurse => true,
         mode => 'a+rw',
+    }
+
+    file { ["${settings::modulepath}/../web/data"]:
+        require => Exec["install_dokuwiki"],
+        ensure => absent
     }
 
     exec { "install_dokuwiki":
