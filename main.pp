@@ -11,6 +11,14 @@ node default {
         mode => 'a+rw',
     }
 
+    file { "${settings::modulepath}/../web/conf/acl.auth.php":
+        require => Exec["install_dokuwiki"],
+        replace => "no",
+        ensure  => "present",
+        source  => "puppet:///modules/main/acl.auth.php",
+        mode => 'a+rw',
+    }
+
     file { "${settings::modulepath}/../web/conf/dokuwiki.php":
         require => Exec["install_dokuwiki"],
         replace => "no",
