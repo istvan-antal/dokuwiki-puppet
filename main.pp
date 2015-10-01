@@ -3,7 +3,7 @@ node default {
     $maxUploadedFileSize = 500
     $maxFileUploads = 50
 
-    file { "${settings::modulepath}/../web/data":
+    file { ["${settings::modulepath}/../web/data", "${settings::modulepath}/../web/conf"]:
         ensure => directory,
         recurse => true,
         mode => 'a+rw',
