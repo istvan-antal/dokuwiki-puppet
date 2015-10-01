@@ -5,7 +5,7 @@ node default {
 
     exec { "install_dokuwiki":
         command => "${settings::modulepath}/main/install_dokuwiki.sh 2015-08-10a",
-        creates => "${settings::modulepath}/web",
+        creates => "${settings::modulepath}/../web",
         logoutput => true,
         timeout => 1800
     }
