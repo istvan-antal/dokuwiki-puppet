@@ -3,6 +3,12 @@ node default {
     $maxUploadedFileSize = 500
     $maxFileUploads = 50
 
+    file { "${settings::modulepath}/../web/data":
+        ensure => directory,
+        recurse => true,
+        mode => 'a+rw',
+    }
+
     exec { "install_dokuwiki":
         command => "${settings::modulepath}/main/install_dokuwiki.sh 2015-08-10a",
         creates => "${settings::modulepath}/../web",
