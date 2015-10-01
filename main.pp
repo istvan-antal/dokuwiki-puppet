@@ -12,6 +12,7 @@ node default {
 
     file { "${settings::modulepath}/../web/conf/dokuwiki.php":
         require => Exec["install_dokuwiki"],
+        replace => "no",
         content  => template('main/conf_dokuwiki.php.erb'),
     }
 
