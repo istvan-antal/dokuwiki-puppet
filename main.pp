@@ -3,7 +3,13 @@ node default {
     $maxUploadedFileSize = 500
     $maxFileUploads = 50
 
+    file { "${settings::modulepath}/../web/conf/dokuwiki.php":
+        require => Exec["install_dokuwiki"],
+        content  => template('main/conf_dokuwiki.php.erb'),
+    }
+
     file { ["${settings::modulepath}/../web/data", "${settings::modulepath}/../web/conf"]:
+        require => Exec["install_dokuwiki"],
         ensure => directory,
         recurse => true,
         mode => 'a+rw',
