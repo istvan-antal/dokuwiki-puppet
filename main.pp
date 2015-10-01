@@ -3,6 +3,13 @@ node default {
     $maxUploadedFileSize = 500
     $maxFileUploads = 50
 
+    file { "${settings::modulepath}/../web/conf/users.auth.php":
+        require => Exec["install_dokuwiki"],
+        replace => "no",
+        ensure  => "present",
+        source  => "puppet:///modules/main/users.auth.php",
+    }
+
     file { "${settings::modulepath}/../web/conf/dokuwiki.php":
         require => Exec["install_dokuwiki"],
         content  => template('main/conf_dokuwiki.php.erb'),
