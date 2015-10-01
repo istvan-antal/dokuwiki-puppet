@@ -40,6 +40,11 @@ server {
 		return 404;
 	}
 
+	location /lib/plugins {
+		access_log off;
+		return 404;
+	}
+
 	location /inc {
 		access_log off;
 		return 404;

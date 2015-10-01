@@ -26,7 +26,11 @@ node default {
         mode => 'a+rw',
     }
 
-    file { ["${settings::modulepath}/../data", "${settings::modulepath}/../web/conf"]:
+    file { [
+            "${settings::modulepath}/../data",
+            "${settings::modulepath}/../web/conf",
+            "${settings::modulepath}/../web/lib/plugins",
+        ]:
         require => Exec["install_dokuwiki"],
         ensure => directory,
         recurse => true,
