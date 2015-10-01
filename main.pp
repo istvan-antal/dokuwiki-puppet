@@ -8,12 +8,14 @@ node default {
         replace => "no",
         ensure  => "present",
         source  => "puppet:///modules/main/users.auth.php",
+        mode => 'a+rw',
     }
 
     file { "${settings::modulepath}/../web/conf/dokuwiki.php":
         require => Exec["install_dokuwiki"],
         replace => "no",
         content  => template('main/conf_dokuwiki.php.erb'),
+        mode => 'a+rw',
     }
 
     file { ["${settings::modulepath}/../data", "${settings::modulepath}/../web/conf"]:
