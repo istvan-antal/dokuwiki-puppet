@@ -1,7 +1,7 @@
 # Setup
 
-Clone this project onto an Ubuntu server and run:
-
 ```bash
-make
+git clone https://github.com/istvan-antal/dokuwiki-puppet.git dokuwiki
+cd dokuwiki
+./build.sh
 ```
