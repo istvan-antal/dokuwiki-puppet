@@ -4,23 +4,27 @@ server {
 
 	root <%= scope.lookupvar('settings::modulepath').split('/')[0 .. -2].join('/') %>/web;
 
-	index index.php;
+	index doku.php;
 
 	server_name _;
 
 	client_max_body_size <%= @maxUploadSize%>M;
 
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri /index.php$is_args$args;
-	}
+    location / { try_files $uri $uri/ @dokuwiki; }
+
+    location @dokuwiki {
+        rewrite ^/_media/(.*) /lib/exe/fetch.php?media=$1 last;
+        rewrite ^/_detail/(.*) /lib/exe/detail.php?media=$1 last;
+        rewrite ^/_export/([^/]+)/(.*) /doku.php?do=export_$1&id=$2 last;
+        rewrite ^/(?!lib/)(.*) /doku.php?id=$1&$args last;
+    }
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param REDIRECT_STATUS 200;
         fastcgi_param PATH_INFO $fastcgi_script_name;
         fastcgi_param HTTPS off;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
