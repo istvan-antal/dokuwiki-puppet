@@ -1,9 +1,4 @@
-map $http_x_forwarded_proto $thescheme {
-     default $scheme;
-     https https;
-}
-
-map $thescheme $php_https { default off; https on; }
+map $http_x_forwarded_proto $php_https { default off; https on; }
 
 server {
 	listen 80 default_server;
