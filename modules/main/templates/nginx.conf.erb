@@ -6,6 +6,8 @@ server {
 
 	index doku.php;
 
+	map $scheme $php_https { default off; https on; }
+
 	server_name _;
 
 	client_max_body_size <%= @maxUploadSize%>M;
@@ -26,6 +28,7 @@ server {
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param REDIRECT_STATUS 200;
         fastcgi_param PATH_INFO $fastcgi_script_name;
+        fastcgi_param HTTPS $php_https;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 	}
 
