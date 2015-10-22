@@ -1,3 +1,5 @@
+map $scheme $php_https { default off; https on; }
+
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
@@ -5,8 +7,6 @@ server {
 	root <%= scope.lookupvar('settings::modulepath').split('/')[0 .. -2].join('/') %>/web;
 
 	index doku.php;
-
-	map $scheme $php_https { default off; https on; }
 
 	server_name _;
 
