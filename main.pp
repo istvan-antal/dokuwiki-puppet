@@ -30,6 +30,7 @@ node default {
             "${settings::modulepath}/../data",
             "${settings::modulepath}/../web/conf",
             "${settings::modulepath}/../web/lib/plugins",
+            "${settings::modulepath}/../web/lib/tpl",
         ]:
         require => Exec["install_dokuwiki"],
         ensure => directory,
